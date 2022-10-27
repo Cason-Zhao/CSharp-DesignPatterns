@@ -47,13 +47,13 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\Message.cs" />
-    <Compile Include="Provider\MessageProviderCollection.cs" />
-    <Compile Include="Provider\MessageModel.cs" />
-    <Compile Include="Provider\MessageProvider.cs" />
-    <Compile Include="Provider\MessageProviderConfigurationSection.cs" />
-    <Compile Include="Provider\SqlMessageProvider.cs" />
-    <Compile Include="Provider\XMLMessageProvider.cs" />
+    <Compile Include="Provider\MessageProvider\Message.cs" />
+    <Compile Include="Provider\MessageProvider\MessageProviderCollection.cs" />
+    <Compile Include="Provider\MessageProvider\MessageModel.cs" />
+    <Compile Include="Provider\MessageProvider\MessageProvider.cs" />
+    <Compile Include="Provider\MessageProvider\MessageProviderConfigurationSection.cs" />
+    <Compile Include="Provider\MessageProvider\SqlMessageProvider.cs" />
+    <Compile Include="Provider\MessageProvider\XMLMessageProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
