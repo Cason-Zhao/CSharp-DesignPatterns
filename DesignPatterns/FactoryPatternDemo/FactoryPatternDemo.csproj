@@ -49,5 +49,8 @@
   <ItemGroup>
     <None Include="ReadMe.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Images\工厂方法模式类图.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
