@@ -50,7 +50,17 @@
     <None Include="ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Images\工厂方法模式类图-应用-跨平台UI设计.png" />
     <Content Include="Resources\Images\工厂方法模式类图.png" />
+    <Content Include="Resources\Images\耦合-1内容耦合.jpg" />
+    <Content Include="Resources\Images\耦合-2公共耦合.jpg" />
+    <Content Include="Resources\Images\耦合-3外部耦合.jpg" />
+    <Content Include="Resources\Images\耦合-4控制耦合-2.jpg" />
+    <Content Include="Resources\Images\耦合-4控制耦合.jpg" />
+    <Content Include="Resources\Images\耦合-5标记耦合.png" />
+    <Content Include="Resources\Images\耦合-7非直接耦合.jpg" />
+    <Content Include="Resources\Images\耦合-6数据耦合.jpg" />
+    <Content Include="Resources\Images\高内聚低耦合.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
