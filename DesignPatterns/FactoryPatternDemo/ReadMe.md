@@ -595,6 +595,103 @@ public class B
 > 复杂业务之所以复杂，一个重要原因是涉及角色或者类型较多，很难平铺直叙地进行设计。如果非要进行平铺设计，必然会出现大量if else代码块。
 ![非直接耦合](.\\Resources\\Images\\耦合-7非直接耦合.jpg)  
 
+场景分析：当前有ABC三种订单类型
+ - A订单价格9折，物流最大重量不能超过9公斤，不支持退款。
+ - B订单价格8折，物流最大重量不能超过8公斤，支持退款。
+ - C订单价格7折，物流最大重量不能超过7公斤，支持退款。  
+
+场景并不复杂，平铺直叙的方式可以实现
+``` CSharp
+public class OrderCmd
+{
+    public void createOrder(OrderInfo orderInfo) 
+	{
+        if (null == orderInfo) 
+		{
+            throw new ArgumentNullException("参数异常！");
+        }
+        if (!OrderTypeConst.ContainsKey(orderInfo.OrderType)) 
+		{
+            throw new Exception("订单类型数据非法！");
+        }
+		
+        // A类型订单
+        if (OrderTypeConst.A == orderInfo.OrderType) 
+		{
+            orderInfo.Price = orderInfo.Price * 0.9;
+            if (orderInfo.Weight > 9) 
+			{
+                throw new Exception("超过物流最大重量");
+            }
+            orderInfo.IsSupportRefund = False;
+        }
+        // B类型订单
+        if (OrderTypeConst.B == orderInfo.OrderType) 
+		{
+            orderInfo.Price = orderInfo.Price * 0.8;
+            if (orderInfo.Weight > 8) 
+			{
+                throw new Exception("超过物流最大重量");
+            }
+            orderInfo.IsSupportRefund = True;
+        }
+        // C类型订单
+        if (OrderTypeConst.C == orderInfo.OrderType) 
+		{
+            orderInfo.Price = orderInfo.Price * 0.7;
+            if (orderInfo.Weight > 7) 
+			{
+                throw new Exception("超过物流最大重量");
+            }
+            orderInfo.IsSupportRefund = True;
+        }
+		
+        // 保存数据
+		SaveOrder(orderInfo);
+    }
+	
+	public void SaveOrder(OrderInfo orderInfo)
+	{
+		// 保存
+	}
+}
+
+public class OrderInfoModel
+{
+	public string OrderType { get; set; }
+	
+	public decimal Price { get; set; }
+	
+	public decimal Weight { get; set; }
+	
+	public bool IsSupportRefund { get; set; }
+}
+
+public class OrderTypeConst
+{
+	public string A = "A";
+	public string B = "B";
+	public string C = "C";
+	
+	private static readonly Dictionary<string, string> Names = new Dictionary<string, string>
+	{
+		{ A, "9公斤"},
+		{ B, "8公斤"},
+		{ C, "7公斤"},
+	};
+	
+	public static bool ContainsKey(string key)
+	{
+		return key == null || !Names.ContainsKey(key) ? string.Empty: Names[key];
+	}
+}
+```
+
+上述代码从功能上完全可以实现业务需求，但是程序员不仅要满足于功能的实现，还需要思考代码的可维护性。
+需求变动：如果新增一种订单类型，或者新增一个订单属性处理逻辑。
+问题出现：那么我们就要在上述逻辑中新增代码，如果处理不慎就会影响原有逻辑。
+解决方案：为了避免牵一发而动全身这种情况，设计模式中的开闭原则要求我们面向新增开放，面向修改关闭。应对需求变化 应通过扩展的方式，而不是修改已有代码，这样就保证代码稳定性。扩展也不是随意扩展，因为事先定义了框架，扩展也是根据框架扩展。用抽象构建框架，用实现扩展细节。
+
 ### 附1.2、内聚
 - 偶然内聚
 - 逻辑内聚
