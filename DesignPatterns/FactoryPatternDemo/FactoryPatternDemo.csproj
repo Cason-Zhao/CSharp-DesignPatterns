@@ -58,6 +58,8 @@
     <Content Include="Resources\Images\耦合-4控制耦合-2.jpg" />
     <Content Include="Resources\Images\耦合-4控制耦合.jpg" />
     <Content Include="Resources\Images\耦合-5标记耦合.png" />
+    <Content Include="Resources\Images\耦合-7非直接耦合-分析维度-场景、策略.png" />
+    <Content Include="Resources\Images\耦合-7非直接耦合-分析维度-纵横思维.png" />
     <Content Include="Resources\Images\耦合-7非直接耦合.jpg" />
     <Content Include="Resources\Images\耦合-6数据耦合.jpg" />
     <Content Include="Resources\Images\高内聚低耦合.jpg" />
