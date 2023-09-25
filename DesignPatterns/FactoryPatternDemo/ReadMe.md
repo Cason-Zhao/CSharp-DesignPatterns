@@ -595,7 +595,7 @@ public class B
 > 复杂业务之所以复杂，一个重要原因是涉及角色或者类型较多，很难平铺直叙地进行设计。如果非要进行平铺设计，必然会出现大量if else代码块。
 ![非直接耦合](./Resources/Images/耦合-7非直接耦合.jpg)  
 
-#### 附1.1.7.1 场景
+##### 附1.1.7.1 场景
 > 1. 场景分析；
 > 2. 简单实现；
 > 3. 转换思维；
@@ -708,7 +708,7 @@ public class OrderTypeConst
 针对当前问题，我们通过增加两个维度“纵向、横向”来分析，使用**分析矩阵**方法（其中纵向表示策略，横向表示场景）：
 ![分析矩阵](./Resources/Images/耦合-7非直接耦合-分析维度-场景、策略.png "分析矩阵")
 
-#### 附1.1.7.2 纵向做隔离
+##### 附1.1.7.2 纵向做隔离
 > 纵向维度表示策略，不同策略在逻辑上和业务上应该是隔离的。  
 > 本示例包括优惠策略、物流策略和退款策略，策略作为抽象，不同订单类型去扩展这个抽象，策略模式非常适合这种场景。
 ```csharp
@@ -789,11 +789,80 @@ public class DiscountExecutor
 }
 ```
 
-#### 附1.1.7.3 横向做编排
+##### 附1.1.7.3 横向做编排
 > 横向维度表示场景，一种订单类型在广义上可以认为是一种业务场景，在场景中将独立的策略进行串联，模板方法设计模式适用于这种场景。  
 > 模板方法模式一般使用抽象类定义算法骨架，同时定义一些抽象方法，这些抽象方法延迟到子类实现，这样子类不仅遵守了算法骨架约定，也实现了自己的算法。既保证了规约也兼顾灵活性，这就是用抽象构建框架，用实现扩展细节。  
+```csharp
+public abstract class OrderCreatorBase
+{
+    public void Create(OrderInfoModel orderInfo)
+    {
+        if(null == orderInfo)
+        {
+            throw new Exception("订单为空！");
+        }
+		if(!OrderTypeConst.ContainKey(orderInfo.Type))
+        {
+            throw new Exception($"订单类型({orderInfo.Type})非法！");
+        }
+		
+        // 计算优惠
+        Discount(orderInfo);
+		
+        // 计算重量
+        Weighting(orderInfo);
+		
+        // 支持退款
+        SupportRefund(orderInfo);
+		
+        // 保存订单
+        SaveOrder(orderInfo);
+    }
+	
+    private void SaveOrder(OrderInfoModel orderInfo)
+    {
+        // 保存
+    }
+	
+    protected abstract void Discount(OrderInfoModel orderInfo);
+    protected abstract void Weighting(OrderInfoModel orderInfo);
+    protected abstract void SupportRefund(OrderInfoModel orderInfo);
+}
 
+public class OrderCreator: OrderCreatorBase
+{
+    private static DiscountExecutor DiscountExecutor;
+    private static WeightingExecutor WeightingExecutor;
+    private static RefundExecutor RefundExecutor;
+	
+    static OrderCreator()
+    {
+        DiscountExecutor = new DiscountExecutor();
+        WeightingExecutor = new WeightingExecutor();
+        RefundExecutor = new RefundExecutor();
+    }
+	
+    protected override void Discount(OrderInfo orderInfo)
+    {
+        DiscountExecutor.Discount(orderInfo);
+    }
+    protected override void Weighting(OrderInfo orderInfo)
+    {
+        WeightingExecutor.Weighting(orderInfo);
+    }
+    protected override void SupportRefund(OrderInfo orderInfo)
+    {
+        RefundExecutor.SupportRefund(orderInfo);
+    }
+}
 
+```
+
+##### 附1.1.7.4 纵横思维
+> &emsp;&emsp;上述示例业务和代码并不复杂，其实复杂业务场景也不过是简单场景的叠加、组合和交织，无外乎也是通过纵向做隔离、横向做编排寻求答案。  
+- 纵向维度抽象出能力池这个概念，能力池中包含许多能力，不同的能力按照不同业务维度聚合，例如优惠能力池，物流能力池，退款能力池。我们可以看到两种程度的隔离性，能力池之间相互隔离，能力之间也相互隔离。  
+- 横向维度将能力从能力池选出来，按照业务需求串联在一起，形成不同业务流程。因为能力可以任意组合，所以体现了很强的灵活性。除此之外，不同能力既可以串行执行，如果不同能力之间没有依赖关系，也可以如同流程Y一样并行执行，提升执行效率。  
+![纵横思维](./Resources/Images/耦合-7非直接耦合-分析维度-纵横思维.png "纵横思维")
 ### 附1.2、内聚
 - 偶然内聚
 - 逻辑内聚
