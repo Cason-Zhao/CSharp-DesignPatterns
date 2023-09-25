@@ -130,7 +130,7 @@ internal class Salesperson: IEmployee
 ```
 
 **类图**  
-![类图](.\\Resources\\Images\\工厂方法模式类图.png)  
+![类图](./Resources/Images/工厂方法模式类图.png)  
 **Creator：创建者，抽象基类“工厂”。**  
 尽管此处名称为创建者，但其主要职责并不是产生实例——一般而言，其包含与产品相关的核心业务逻辑，工厂方法将些核心逻辑从具体产品类中剥离出来。
 比如，某大型软件开发公司，有开发者培训部，但其主要职责是开发软件，而不是培训开发者
@@ -146,7 +146,7 @@ internal class Salesperson: IEmployee
 产品接口的不同实现
 
 **应用：跨平台UI设计**  
-![类图-跨平台UI设计](.\\Resources\\Images\\工厂方法模式类图-应用-跨平台UI设计.png)  
+![类图-跨平台UI设计](./Resources/Images/工厂方法模式类图-应用-跨平台UI设计.png)  
 
 ## 4、简单工厂
 > 类中提供一个“创建对象的方法”，其方法体中具有大量条件语句，根据方法的参数来决定具体实例化对象的具体类型。通常没有子类。  
@@ -221,7 +221,7 @@ internal class EmployeeFactory
 
 ## 附2、高内聚、低耦合
 > 耦合主要描述模块之间的关系，内聚主要描述模块内部的关系。
-> ![高内聚低耦合](.\\Resources\\Images\\高内聚低耦合.jpg)
+> ![高内聚低耦合](./Resources/Images/高内聚低耦合.jpg)
 > - 内聚：从功能的角度来度量**模块内**的联系，一个好的内聚模块应当**恰好做一件事**。它描述的是模块内的功能联系。
 > - 耦合：软件结构中各**模块之间**相互连接的一种度量，耦合强弱取决于——模块间接口的复杂程度、进入或访问一个模块的点以及通过接口的数据。
 
@@ -246,7 +246,7 @@ internal class EmployeeFactory
 > 一个模块可以直接访问另一个模块的内部数据被称为内容耦合（又称病态耦合），这是耦合性最强的类型，这也是我们需要尽量避免的。
 
 示例1：假设-模块A是订单模块、模块B是支付模块，如果支付模块可以直接访问订单数据表，那么至少会带来以下问题：
-> ![内容耦合](.\\Resources\\Images\\耦合-1内容耦合.jpg)
+> ![内容耦合](./Resources/Images/耦合-1内容耦合.jpg)
 - 存在重复的数据访问层代码，支付和订单模块都要写订单数据访问代码。
 - 如果订单业务变动（需要变更订单数据字段），而此时支付模块没有跟着及时变更，那么可能会造成业务错误。
 - 如果订单业务变动（需要分库分表拆分数据），而此时支付模块没有跟着及时变更，那么可能会造成支付模块严重错误。
@@ -490,12 +490,12 @@ internal class EmployeeFactory
 > - 其中松散的公共耦合是单向操作，如两个或多个模块对同一个文件的读操作；  
 > - 而紧密的公共耦合是双向的操作，如两个或多个模块对同一文件的读写操作； 
 
-![公共耦合](.\\Resources\\Images\\耦合-2公共耦合.jpg)
+![公共耦合](./Resources/Images/耦合-2公共耦合.jpg)
 
 #### 附1.1.3、外部耦合
 > 多个模块都访问同一个全局简单变量（非全局数据结构）并且不是通过参数表传递此全局变量信息被称为外部耦合。
 
-![外部耦合](.\\Resources\\Images\\耦合-3外部耦合.jpg)
+![外部耦合](./Resources/Images/耦合-3外部耦合.jpg)
 示例：库存
 ``` CSharp
 public class Inventory
@@ -525,13 +525,13 @@ public class Sale
 > 模块之间传递信息中包含用于控制模块内部的信息被称为控制耦合。控制耦合可能会导致模块之间控制逻辑相互交织，逻辑之间相互影响，非常不利于代码维护。
 > 一个模块调用另一个模块时，传递的是控制变量，被调用模块通过该控制变量的值有选择地执行模块内的某一功能。因此，被调用模块应具有多个功能，哪个功能起作用受调用模块控制。
 
-![控制耦合](.\\Resources\\Images\\耦合-4控制耦合-2.jpg)
-![控制耦合](.\\Resources\\Images\\耦合-4控制耦合.jpg)  
+![控制耦合](./Resources/Images/耦合-4控制耦合-2.jpg)
+![控制耦合](./Resources/Images/耦合-4控制耦合.jpg)  
   
 
 #### 附1.1.5、标记耦合
 > 调用模块和被调用模块之间传递数据结构而不是简单数据，同时也称作特征耦合。
-![标记耦合](.\\Resources\\Images\\耦合-5标记耦合.png)  
+![标记耦合](./Resources/Images/耦合-5标记耦合.png)  
 ``` CSharp
 public class A
 {
@@ -568,7 +568,7 @@ public class OperateParam
 > 两个模块调用时，传递的是简单的数据值，不是数据结构或者其他复杂变量。
 > 如果一个模块访问另一个模块时，彼此之间是通过数据参数(不是控制参数、公共数据结构或外部变量)来交换输入、输出信息的，则称这种耦合为数据耦合。
 > 在软件程序结构中至少必须有这类耦合。
-![数据耦合](.\\Resources\\Images\\耦合-6数据耦合.jpg)  
+![数据耦合](./Resources/Images/耦合-6数据耦合.jpg)  
 ``` CSharp
 public class A
 {
@@ -593,7 +593,13 @@ public class B
 #### 附1.1.7、非直接耦合
 > 多个模块之间没有直接联系，通过主模块的控制和调用实现联系被称为非直接耦合，这也是一种理想的耦合方式。
 > 复杂业务之所以复杂，一个重要原因是涉及角色或者类型较多，很难平铺直叙地进行设计。如果非要进行平铺设计，必然会出现大量if else代码块。
-![非直接耦合](.\\Resources\\Images\\耦合-7非直接耦合.jpg)  
+![非直接耦合](./Resources/Images/耦合-7非直接耦合.jpg)  
+
+#### 附1.1.7.1 场景
+> 1. 场景分析；
+> 2. 简单实现；
+> 3. 转换思维；
+> 4. 分析矩阵； 
 
 场景分析：当前有ABC三种订单类型
  - A订单价格9折，物流最大重量不能超过9公斤，不支持退款。
@@ -604,7 +610,7 @@ public class B
 ``` CSharp
 public class OrderCmd
 {
-    public void createOrder(OrderInfo orderInfo) 
+    public void createOrder(OrderInfoModel orderInfo) 
 	{
         if (null == orderInfo) 
 		{
@@ -650,7 +656,7 @@ public class OrderCmd
 		SaveOrder(orderInfo);
     }
 	
-	public void SaveOrder(OrderInfo orderInfo)
+	public void SaveOrder(OrderInfoModel orderInfo)
 	{
 		// 保存
 	}
@@ -695,7 +701,97 @@ public class OrderTypeConst
 - 扩展也不是随意扩展，因为事先定义了框架，扩展也是根据框架扩展。
 - 用抽象构建框架，用实现扩展细节。
 
-如何改变平铺直叙的思考方式？
+如何改变平铺直叙的思考方式？我们需要增加分析维度。
+- 其中最常见的是增加横向和纵向两个维度，总体而言横向扩展的是思考广度，纵向扩展的是思考深度。
+- 对应到系统设计而言可以总结为：**纵向做隔离**，**横向做编排**。
+
+针对当前问题，我们通过增加两个维度“纵向、横向”来分析，使用**分析矩阵**方法（其中纵向表示策略，横向表示场景）：
+![分析矩阵](./Resources/Images/耦合-7非直接耦合-分析维度-场景、策略.png "分析矩阵")
+
+#### 附1.1.7.2 纵向做隔离
+> 纵向维度表示策略，不同策略在逻辑上和业务上应该是隔离的。  
+> 本示例包括优惠策略、物流策略和退款策略，策略作为抽象，不同订单类型去扩展这个抽象，策略模式非常适合这种场景。
+```csharp
+/// <summary>
+/// 优惠策略
+/// </summary>
+public interface IDiscount
+{
+    void Discount(OrderInfoModel orderInfo);
+}
+/// <summary>
+/// A类型优惠策略
+/// </summary>
+public class TypeADiscount: IDiscount 
+{
+    public void Discount(OrderInfoModel orderInfo) 
+    {
+        orderInfo.Price *= 0.9;
+    }
+}
+
+/// <summary>
+/// B类型优惠策略
+/// </summary>
+public class TypeBDiscount: IDiscount 
+{
+    public void Discount(OrderInfoModel orderInfo) 
+	{
+        orderInfo.Price *= 0.8;
+    }
+}
+
+/// <summary>
+/// C类型优惠策略
+/// </summary>
+public class TypeCDiscount: IDiscount 
+{
+    public void Discount(OrderInfoModel orderInfo) 
+    {
+        orderInfo.Price *= 0.7;
+    }
+}
+
+/// <summary>
+/// 优惠策略工厂
+/// </summary>
+public class DiscountFactory 
+{
+    private static Dictionary<string, IDiscount> Caches = new Dictionary<string, IDiscount>();
+
+    static DiscountFactory()
+    {
+        Caches.Add(OrderTypeConst.A, new TypeADiscount());
+        Caches.Add(OrderTypeConst.B, new TypeBDiscount());
+        Caches.Add(OrderTypeConst.C, new TypeCDiscount());
+    }
+	
+    public static IDiscount GetDiscount(string type)
+    {
+        return Caches == null || Caches.Count == 0 || !Caches.ContainsKey(type) ? null : Caches[type];
+    }
+}
+
+/// <summary>
+/// 优惠策略执行
+/// </summary>
+public class DiscountExecutor 
+{
+    public void Discount(OrderInfoModel orderInfo) 
+    {
+        var discount = DiscountFactory.GetDiscount(orderInfo.Type);
+        if (null == discount) 
+        {
+            throw new Exception("无优惠策略");
+        }
+        discount.Discount(orderInfo);
+    }
+}
+```
+
+#### 附1.1.7.3 横向做编排
+> 横向维度表示场景，一种订单类型在广义上可以认为是一种业务场景，在场景中将独立的策略进行串联，模板方法设计模式适用于这种场景。  
+> 模板方法模式一般使用抽象类定义算法骨架，同时定义一些抽象方法，这些抽象方法延迟到子类实现，这样子类不仅遵守了算法骨架约定，也实现了自己的算法。既保证了规约也兼顾灵活性，这就是用抽象构建框架，用实现扩展细节。  
 
 
 ### 附1.2、内聚
